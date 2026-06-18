@@ -1,0 +1,26 @@
+name: exam-grader-app
+base: core22
+version: '1.0'
+summary: Projekt za automatizirano ocjenjivanje ispita s GUI sučeljem.
+description: |
+  Aplikacija koristi Tkinter grafičko sučelje, napredne koncepte 
+  programiranja (ABC, closures, dekoratore) te višenitnost 
+  (ThreadPoolExecutor) za paralelnu obradu i ocjenjivanje studentskih ispita.
+
+grade: devel
+confinement: devmode 
+
+apps:
+  exam-grader-app:
+    command: bin/python3 $SNAP/grader_project.py
+    extensions: [gnome] 
+    plugs:
+      - home         
+      - x11           
+
+parts:
+  moj-kod:
+    plugin: dump
+    source: .       
+    stage-packages:
+      - python3-tk      
