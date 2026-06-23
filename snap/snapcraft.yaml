@@ -4,8 +4,7 @@ version: '1.0'
 summary: Projekt za automatizirano ocjenjivanje ispita s GUI sučeljem.
 description: |
   Aplikacija koristi Tkinter grafičko sučelje, napredne koncepte 
-  programiranja (ABC, closures, dekoratore) te višenitnost 
-  (ThreadPoolExecutor) za paralelnu obradu i ocjenjivanje studentskih ispita.
+  programiranja te višenitnost za paralelnu obradu i ocjenjivanje studentskih ispita.
 
 grade: devel
 confinement: devmode 
@@ -16,11 +15,11 @@ apps:
     extensions: [gnome] 
     plugs:
       - home         
-      - x11           
+      - x11          
 
 parts:
   moj-kod:
-    plugin: dump
-    source: .       
+    plugin: python
+    source: . 
     stage-packages:
-      - python3-tk      
+      - python3-tk
