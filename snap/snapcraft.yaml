@@ -10,7 +10,7 @@ confinement: devmode
 
 apps:
   exam-grader-app:
-    command: grader_project.py
+    command: python3 $SNAP/grader_project.py
     extensions: [gnome]
     plugs:
       - home
