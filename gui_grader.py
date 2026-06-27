@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
 import threading
 from typing import Dict, List, Tuple
 import tkinter as tk
 from tkinter import ttk, messagebox
 import time
+import os
 
 from grader_project import ExamGrader, load_students_from_folder
 
@@ -149,7 +151,10 @@ class GraderGUI:
         return name
     
     def grade_all_exams(self):
-        exams_folder = "studenti"
+        # Provjera i rješavanje putanje unutar Snap paketa
+        snap_path = os.environ.get('SNAP', '.')
+        exams_folder = os.path.join(snap_path, "studenti")
+        
         students_exams = load_students_from_folder(exams_folder)
 
         if not students_exams:
@@ -186,134 +191,4 @@ class GraderGUI:
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
         header_frame = tk.Frame(self.scrollable_frame, bg="#34495e")
-        header_frame.pack(fill=tk.X, padx=0, pady=5)
-
-        header_frame.grid_columnconfigure(0, weight=1, uniform="cols")
-        header_frame.grid_columnconfigure(1, weight=1, uniform="cols")
-        header_frame.grid_columnconfigure(2, weight=1, uniform="cols")
-        
-        columns = [
-            ("Ime i Prezime", 300),
-            ("Točni Odgovori", 150),
-            ("Ocjena", 120),
-          
-        ]
-        
-        for col_name, width in columns:
-            col_label = tk.Label(
-                header_frame,
-                text=col_name,
-                font=("Helvetica", 12, "bold"),
-                bg="#34495e",
-                fg="white",
-                anchor="center",
-                padx=10,
-                pady=10
-            )
-            col_index = columns.index((col_name, width))
-            col_label.grid(row=0, column=col_index, sticky="ew")
-        
-     
-        for idx, (_, student_name, points, grade, total) in enumerate(self.results):
-            row_frame = tk.Frame(
-                self.scrollable_frame,
-                bg="white" if idx % 2 == 0 else "#ecf0f1"
-            )
-            row_frame.pack(fill=tk.X, padx=0, pady=2)
-
-            row_frame.grid_columnconfigure(0, weight=1, uniform="cols")
-            row_frame.grid_columnconfigure(1, weight=1, uniform="cols")
-            row_frame.grid_columnconfigure(2, weight=1, uniform="cols")
-            
-            name_label = tk.Label(
-                row_frame,
-                text=student_name,
-                font=("Helvetica", 10),
-                bg=row_frame["bg"],
-                anchor="w",
-                padx=10,
-                pady=8
-            )
-            name_label.grid(row=0, column=0, sticky="ew")
-            
-            points_label = tk.Label(
-                row_frame,
-                text=f"{points}/{total}",
-                font=("Helvetica", 10, "bold"),
-                bg=row_frame["bg"],
-                fg="#2980b9",
-                anchor="center",
-                padx=10,
-                pady=8
-            )
-            points_label.grid(row=0, column=1, sticky="ew")
-            
-            grade_colors = {
-                1: "#e74c3c",  
-                2: "#f39c12",  
-                3: "#f1c40f",  
-                4: "#27ae60",
-                5: "#16a085"   
-            }
-            
-            grade_label = tk.Label(
-                row_frame,
-                text=str(grade),
-                font=("Helvetica", 11, "bold"),
-                bg=row_frame["bg"],
-                fg=grade_colors.get(grade, "black"),
-                anchor="center",
-                padx=10,
-                pady=8
-            )
-            grade_label.grid(row=0, column=2, sticky="ew")
-
-        total_students = len(self.results)
-        passed_count = sum(1 for _, _, _, grade, _ in self.results if grade >= 2)
-        pass_rate = (passed_count / total_students * 100) if total_students else 0
-
-        summary_frame = tk.Frame(self.scrollable_frame, bg="#dfe6e9")
-        summary_frame.pack(fill=tk.X, padx=0, pady=(10, 5))
-
-        summary_frame.grid_columnconfigure(0, weight=1, uniform="cols")
-        summary_frame.grid_columnconfigure(1, weight=1, uniform="cols")
-        summary_frame.grid_columnconfigure(2, weight=1, uniform="cols")
-
-        summary_label = tk.Label(
-            summary_frame,
-            text="Prolaznost:",
-            font=("Helvetica", 11, "bold"),
-            bg="#dfe6e9",
-            fg="#2c3e50",
-            anchor="w",
-            padx=10,
-            pady=8
-        )
-        summary_label.grid(row=0, column=0, columnspan=2, sticky="ew")
-
-        summary_value = tk.Label(
-            summary_frame,
-            text=f"{pass_rate:.1f}% ({passed_count}/{total_students})",
-            font=("Helvetica", 11, "bold"),
-            bg="#dfe6e9",
-            fg="#27ae60" if pass_rate >= 50 else "#e74c3c",
-            anchor="center",
-            padx=10,
-            pady=8
-        )
-        summary_value.grid(row=0, column=2, sticky="ew")
-        
-        self.status_label.config(
-            text=f"Ocjenjivanje je gotovo!",
-            fg="#27ae60"
-        )
-        self.progress_label.config(text="")
-        self.start_button.config(state="normal")
-
-def main():
-    root = tk.Tk()
-    app = GraderGUI(root)
-    root.mainloop()
-
-if __name__ == "__main__":
-    main()
+        header_frame.pack
