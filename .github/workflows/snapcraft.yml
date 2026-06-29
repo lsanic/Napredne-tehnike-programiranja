@@ -2,9 +2,6 @@ name: Build Snap
 
 on:
   push:
-    branches:
-      - main
-      - master
   workflow_dispatch:
 
 jobs:
@@ -12,18 +9,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Snapcraft
+      - name: Install snapcraft
         run: |
+          sudo apt update
+          sudo apt install -y snapd
           sudo snap install snapcraft --classic
 
-      - name: Build Snap
+      - name: Build snap (NO LXD)
         run: |
-          snapcraft
+          snapcraft --destructive-mode
 
-      - name: Upload Snap
+      - name: Upload .snap
         uses: actions/upload-artifact@v4
         with:
           name: prime-snap
