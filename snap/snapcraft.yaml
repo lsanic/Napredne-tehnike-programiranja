@@ -9,7 +9,7 @@ confinement: devmode
 
 apps:
   prime:
-    command: $SNAP/gui_grader.py
+    command: gui_grader.py
     extensions: [gnome]
     plugs:
       - home
@@ -17,7 +17,7 @@ apps:
 
 parts:
   app:
-    plugin: python
+    plugin: dump
     source: .
     stage-packages:
       - python3-tk
