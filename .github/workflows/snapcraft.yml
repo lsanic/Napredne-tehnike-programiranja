@@ -1,29 +1,23 @@
 name: Build Snap
-
-on:
-  push:
-  workflow_dispatch:
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - name: Checkout kod
+      uses: actions/checkout@v4
 
-      - name: Install snapcraft
-        run: |
-          sudo apt update
-          sudo apt install -y snapd
-          sudo snap install snapcraft --classic
+    - name: Pripremi snap okruženje i instaliraj baze
+      run: |
+        sudo snap install core22
+        sudo snap install gtk-common-themes
 
-      - name: Build snap (NO LXD)
-        run: |
-          snapcraft --destructive-mode
+    - name: Pokreni Build preko službene akcije
+      uses: snapcore/action-build@v1
 
-      - name: Upload .snap
-        uses: actions/upload-artifact@v4
-        with:
-          name: prime-snap
-          path: "*.snap"
+    - name: Spremi .snap file kao artifakt
+      uses: actions/upload-artifact@v4
+      with:
+        name: moj-snap-paket
+        path: ./*.snap
