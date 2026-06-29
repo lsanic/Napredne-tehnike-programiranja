@@ -21,3 +21,6 @@ parts:
     source: .
     stage-packages:
       - python3-tk
+    override-build: |
+      snapcraftctl build
+      chmod +x $CRAFT_PART_INSTALL/gui_grader.py
