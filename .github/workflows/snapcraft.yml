@@ -3,16 +3,18 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout kod
       uses: actions/checkout@v4
 
-    - name: Build Snap paket
-      uses: snapcore/action-build@v1
-      id: snapcraft
-      with:
-        snapcraft-args: 'pack --destructive-mode'
+    - name: Instalacija Snapcrafta
+      run: |
+        sudo snap install snapcraft --classic
+
+    - name: Pokreni Build bez LXD-a
+      run: |
+        snapcraft pack --destructive-mode
 
     - name: Spremi .snap file kao artifakt
       uses: actions/upload-artifact@v4
