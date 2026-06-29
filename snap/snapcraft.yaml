@@ -10,7 +10,7 @@ confinement: devmode
 
 apps:
   prime:
-    command: bin/python3 $SNAPCRAFT_PROJECT_DIR/gui_grader.py
+    command: prime
 
 parts:
   app:
