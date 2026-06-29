@@ -1,0 +1,12 @@
+# Snap build folders
+snap/parts/
+snap/prime/
+snap/stage/
+
+# Snap artifacts
+*.snap
+
+# GitHub / IDE
+.github/
+.vscode/
+.DS_Store

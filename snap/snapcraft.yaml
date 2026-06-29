@@ -1,22 +1,20 @@
 name: exam-grader-app
 base: core22
 version: '1.0'
-summary: Projekt za automatizirano ocjenjivanje ispita s GUI sučeljem
-description: |
-  Tkinter GUI aplikacija za ocjenjivanje ispita i paralelnu obradu.
+summary: Projekt za automatizirano ocjenjivanje ispita
+description: Tkinter GUI aplikacija za ocjenjivanje ispita i obradu rezultata
 
-grade: devel
-confinement: devmode
+grade: stable
+confinement: strict
 
 apps:
   exam-grader-app:
-    command: python3 $SNAP/grader_project.py
-    extensions: [gnome]
+    command: python3 grader_project.py
     plugs:
       - home
       - x11
       - desktop
-      - desktop-legacy
+      - wayland
 
 parts:
   moj-kod:
