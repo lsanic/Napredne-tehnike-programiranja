@@ -2,19 +2,18 @@ name: prime
 base: core22
 version: '1.0'
 summary: Aplikacija za racunanje prostih brojeva i ocjenjivanje
-description: |
-  Studentski projekt za kolegij Napredne tehnike programiranja.
+description: Studentski projekt.
 grade: devel
 confinement: devmode
 
 apps:
   prime:
-    extensions: [gnome] # Omogućuje prikaz prozora (Tkinter grafike) na Ubuntuu
-    command: bin/python3 -c "from gui_grader import main; main()"
+    extensions: [gnome]
+    command: bin/python3 $SNAP/gui_grader.py
 
 parts:
   moj-kod:
     plugin: python
     source: .
     stage-packages:
-      - python3-tk  # Nužno da ti aplikacija ne pukne na "Tkinter not found"
+      - python3-tk
