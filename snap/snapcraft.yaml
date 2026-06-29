@@ -9,8 +9,7 @@ confinement: devmode
 
 apps:
   prime:
-
-    command: python3 $SNAP/gui_grader.py
+    command: $SNAP/gui_grader.py
     extensions: [gnome]
     plugs:
       - home
