@@ -8,13 +8,8 @@ jobs:
     - name: Checkout kod
       uses: actions/checkout@v4
 
-    - name: Instalacija Snapcrafta
-      run: |
-        sudo snap install snapcraft --classic
-
-    - name: Pokreni Build bez LXD-a
-      run: |
-        snapcraft pack --destructive-mode
+    - name: Pokreni cisti build preko LXD-a
+      uses: snapcore/action-build@v3
 
     - name: Spremi .snap file kao artifakt
       uses: actions/upload-artifact@v4
