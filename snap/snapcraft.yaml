@@ -1,7 +1,6 @@
 name: prime
 base: core22
 version: "1.0"
-
 summary: Aplikacija za ocjenjivanje ispita
 description: Studentski projekt
 
@@ -10,7 +9,12 @@ confinement: devmode
 
 apps:
   prime:
-    command: prime
+
+    command: python3 $SNAP/gui_grader.py
+    extensions: [gnome]
+    plugs:
+      - home
+      - removable-media
 
 parts:
   app:
