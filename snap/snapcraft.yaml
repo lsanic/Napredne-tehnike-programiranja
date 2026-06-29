@@ -9,8 +9,10 @@ confinement: devmode
 
 apps:
   prime:
-    command: gui_grader.py
+    command: usr/bin/python3 $SNAP/gui_grader.py
     extensions: [gnome]
+    environment:
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/usr/lib/python3.10/dist-packages
     plugs:
       - home
       - removable-media
@@ -21,6 +23,3 @@ parts:
     source: .
     stage-packages:
       - python3-tk
-    override-build: |
-      snapcraftctl build
-      chmod +x $CRAFT_PART_INSTALL/gui_grader.py
