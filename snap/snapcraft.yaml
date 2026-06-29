@@ -1,18 +1,19 @@
 name: prime
 base: core22
-version: '1.0'
-summary: Aplikacija za racunanje prostih brojeva i ocjenjivanje
-description: Studentski projekt.
+version: "1.0"
+
+summary: Aplikacija za ocjenjivanje ispita
+description: Studentski projekt
+
 grade: devel
 confinement: devmode
 
 apps:
   prime:
-    extensions: [gnome]
     command: bin/python3 $SNAP/gui_grader.py
 
 parts:
-  moj-kod:
+  app:
     plugin: python
     source: .
     stage-packages:
