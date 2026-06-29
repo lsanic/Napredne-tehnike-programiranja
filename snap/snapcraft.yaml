@@ -2,24 +2,45 @@ name: prime
 base: core22
 version: "1.0"
 summary: Aplikacija za ocjenjivanje ispita
-description: Studentski projekt
+description: Studentski projekt. Built for Operativni sustavi course.
 
 grade: devel
 confinement: devmode
 
 apps:
   prime:
-    command: usr/bin/python3 $SNAP/gui_grader.py
+    command: bin/python3 $SNAP/gui_grader.py
     extensions: [gnome]
-    environment:
-      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/usr/lib/python3.10/dist-packages
     plugs:
+      - x11
+      - wayland
+      - desktop
+      - desktop-legacy
       - home
       - removable-media
+    environment:
+      PYTHONPATH: "$SNAP:$SNAP/lib/python3.10/site-packages:$SNAP/usr/lib/python3/dist-packages:$SNAP/usr/lib/python3.10:$SNAP/usr/lib/python3.10/lib-dynload"
+      TCL_LIBRARY: "$SNAP/usr/share/tcltk/tcl8.6"
+      TK_LIBRARY: "$SNAP/usr/share/tcltk/tk8.6"
 
 parts:
-  app:
-    plugin: dump
+  python-deps:
+    plugin: python
     source: .
     stage-packages:
+      - python3-venv
+      - python3
       - python3-tk
+      - tcl8.6
+      - tk8.6
+      - libx11-6
+      - libxext6
+      - libxrender1
+      - libxtst6
+      - libxi6
+
+  app-files:
+    plugin: dump
+    source: .
+    organize:
+      gui_grader.py: gui_grader.py
