@@ -216,6 +216,5 @@ class TestExamGrader(unittest.TestCase):
         self.assertEqual(result.grade, 5)
 
 if __name__ == "__main__":
-    from gui_grader import main
-    main()
+    unittest.main()
     
