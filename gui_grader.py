@@ -192,3 +192,12 @@ class GraderGUI:
         
         header_frame = tk.Frame(self.scrollable_frame, bg="#34495e")
         header_frame.pack
+
+
+def main():
+    root = tk.Tk()
+    app = GraderGUI(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
