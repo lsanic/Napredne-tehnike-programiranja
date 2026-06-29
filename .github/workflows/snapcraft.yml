@@ -9,7 +9,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Pokreni cisti build preko LXD-a
-      uses: snapcore/action-build@v3
+      uses: snapcore/action-build@v2
 
     - name: Spremi .snap file kao artifakt
       uses: actions/upload-artifact@v4
