@@ -151,7 +151,6 @@ class GraderGUI:
         return name
     
     def grade_all_exams(self):
-        # Provjera i rješavanje putanje unutar Snap paketa
         snap_path = os.environ.get('SNAP', '.')
         exams_folder = os.path.join(snap_path, "studenti")
         
@@ -191,4 +190,41 @@ class GraderGUI:
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
         header_frame = tk.Frame(self.scrollable_frame, bg="#34495e")
-        header_frame.pack
+        header_frame.pack(fill=tk.X, pady=5)
+        
+        lbl1 = tk.Label(header_frame, text="Student", font=("Helvetica", 12, "bold"), bg="#34495e", fg="white", width=25, anchor="w")
+        lbl1.pack(side=tk.LEFT, padx=10, pady=5)
+        
+        lbl2 = tk.Label(header_frame, text="Točni odgovori", font=("Helvetica", 12, "bold"), bg="#34495e", fg="white", width=15, anchor="center")
+        lbl2.pack(side=tk.LEFT, padx=10, pady=5)
+        
+        lbl3 = tk.Label(header_frame, text="Ocjena", font=("Helvetica", 12, "bold"), bg="#34495e", fg="white", width=10, anchor="center")
+        lbl3.pack(side=tk.LEFT, padx=10, pady=5)
+
+        for name, formatted_name, correct, grade, total in self.results:
+            row = tk.Frame(self.scrollable_frame, bg="white")
+            row.pack(fill=tk.X, padx=5, pady=2)
+            
+            row.bind("<Enter>", lambda e, r=row: r.config(bg="#f8f9fa"))
+            row.bind("<Leave>", lambda e, r=row: r.config(bg="white"))
+            
+            lbl_n = tk.Label(row, text=formatted_name, font=("Helvetica", 11), bg="white", fg="#2c3e50", width=25, anchor="w")
+            lbl_n.pack(side=tk.LEFT, padx=10, pady=5)
+            
+            lbl_c = tk.Label(row, text=f"{correct} / {total}", font=("Helvetica", 11), bg="white", fg="#27ae60" if correct > total/2 else "#e74c3c", width=15, anchor="center")
+            lbl_c.pack(side=tk.LEFT, padx=10, pady=5)
+            
+            lbl_g = tk.Label(row, text=str(grade), font=("Helvetica", 11, "bold"), bg="white", fg="#2980b9", width=10, anchor="center")
+            lbl_g.pack(side=tk.LEFT, padx=10, pady=5)
+            
+            line = tk.Frame(self.scrollable_frame, bg="#e2e8f0", height=1)
+            line.pack(fill=tk.X, padx=5)
+
+        self.status_label.config(text="Ocjenjivanje završeno!", fg="#27ae60")
+        self.progress_label.config(text=f"Uspješno obrađeno {len(self.results)} ispita.", fg="#2c3e50")
+        self.start_button.config(state="normal")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = GraderGUI(root)
+    root.mainloop()

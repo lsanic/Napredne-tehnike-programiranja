@@ -9,7 +9,7 @@ confinement: devmode
 
 apps:
   prime:
-    command: bin/python3 $SNAP/gui_grader.py
+    command: bin/python3 gui_grader.py
     extensions: [gnome]
     plugs:
       - x11
@@ -42,5 +42,3 @@ parts:
   app-files:
     plugin: dump
     source: .
-    organize:
-      gui_grader.py: gui_grader.py
