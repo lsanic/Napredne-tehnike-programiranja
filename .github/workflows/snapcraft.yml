@@ -12,7 +12,8 @@ jobs:
       uses: snapcore/action-build@v1
       id: snapcraft
       with:
-        use-lxd: true  # OVO SPAŠAVA STVAR - pokreće build u čistom LXD kontejneru koji može instalirati core22
+        
+        snapcraft-args: 'pack --destructive-mode'
 
     - name: Spremi .snap file kao artifakt
       uses: actions/upload-artifact@v4
